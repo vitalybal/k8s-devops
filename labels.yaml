@@ -3,7 +3,27 @@ kind: Pod
 metadata:
   name: cuda-test
 spec:
+  containers:
+    - name: cuda-test
+      image: "yanivomc/spring-music:latest"
   affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: topology.kubernetes.io/zone
+            operator: In
+            values:
+            - eu-west-1b
+            - eu-west-1c
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: node.kubernetes.io/instance-type
+            operator: In
+            values:
+            - t3.large
     podAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
@@ -13,8 +33,8 @@ spec:
             values:
             - redis
         topologyKey: topology.kubernetes.io/zone
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
             matchExpressions:
             - key: app
@@ -22,7 +42,3 @@ spec:
               values:
               - spring-music
         topologyKey: topology.kubernetes.io/zone
-  containers:
-    - name: cuda-test
-      image: "yanivomc/spring-music:latest"
-
