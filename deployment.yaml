@@ -25,7 +25,8 @@ spec:
     spec:
       containers:
         - name: cuda-test
-          image: "yanivomc/spring-music:latest"
+          #image: "yanivomc/spring-music:latest"
+          image: "ngnix:latest"
 #      affinity:
 #        nodeAffinity:
 #          requiredDuringSchedulingIgnoredDuringExecution:
