@@ -11,9 +11,6 @@ spec:
   replicas: 3
   strategy:
     type: Recreate
-    #rollingUpdate:
-    #  maxUnavailable: 0%
-    #  maxSurge: 100%
   selector:  # Using the selector we tell our replicaset which pods to manage
     matchLabels:
       tier: frontend
