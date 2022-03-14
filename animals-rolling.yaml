@@ -1,0 +1,130 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: animals-bear
+  labels:
+    app: animals
+    tier: frontend
+spec:
+  # here we select the number of pods we wish to start and the selector that tells our replica set which pods it needs
+  #  to manage
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:  # Using the selector we tell our replicaset which pods to manage
+    matchLabels:
+      tier: frontend
+  template:   # here we define our PODS Specs (k8s uses go template in the background)
+    metadata:
+      labels:
+        tier: frontend
+        app: animals
+    spec:
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: topology.kubernetes.io/zone
+      #           operator: In
+      #           values:
+      #           - eu-west-1b
+      #           - eu-west-1c
+      #     preferredDuringSchedulingIgnoredDuringExecution:
+      #     - weight: 1
+      #       preference:
+      #         matchExpressions:
+      #         - key: node.kubernetes.io/instance-type
+      #           operator: In
+      #           values:
+      #           - t3.large
+      #   podAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: cache
+      #           operator: In
+      #           values:
+      #           - redis
+      #       topologyKey: topology.kubernetes.io/zone
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #           matchExpressions:
+      #           - key: app
+      #             operator: In
+      #             values:
+      #             - spring-music
+      #       topologyKey: topology.kubernetes.io/zone
+      containers:
+        - name: animals
+          image: "supergiantkir/animals:bear"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: animals-moose
+  labels:
+    app: animals
+    tier: frontend
+spec:
+  # here we select the number of pods we wish to start and the selector that tells our replica set which pods it needs
+  #  to manage
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:  # Using the selector we tell our replicaset which pods to manage
+    matchLabels:
+      tier: frontend
+  template:   # here we define our PODS Specs (k8s uses go template in the background)
+    metadata:
+      labels:
+        tier: frontend
+        app: animals
+    spec:
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: topology.kubernetes.io/zone
+      #           operator: In
+      #           values:
+      #           - eu-west-1b
+      #           - eu-west-1c
+      #     preferredDuringSchedulingIgnoredDuringExecution:
+      #     - weight: 1
+      #       preference:
+      #         matchExpressions:
+      #         - key: node.kubernetes.io/instance-type
+      #           operator: In
+      #           values:
+      #           - t3.large
+      #   podAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: cache
+      #           operator: In
+      #           values:
+      #           - redis
+      #       topologyKey: topology.kubernetes.io/zone
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #           matchExpressions:
+      #           - key: app
+      #             operator: In
+      #             values:
+      #             - spring-music
+      #       topologyKey: topology.kubernetes.io/zone
+      containers:
+        - name: animals
+          image: "supergiantkir/animals:moose"
