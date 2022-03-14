@@ -17,7 +17,6 @@ spec:
       labels:
         tier: frontend
     spec:
-    spec:
       containers:
         - name: cuda-test
           image: "yanivomc/spring-music:latest"
