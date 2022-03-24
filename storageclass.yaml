@@ -20,3 +20,27 @@ spec:
  resources:
    requests:
      storage: 4Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: ui
+    tier: frontend
+spec:
+  replicas: 2
+  selector:  # Using the selector we tell our replicaset which pods to manage
+    matchLabels:
+      tier: frontend
+  template:   # here we define our PODS Specs (k8s uses go template in the background)
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+        - name: music
+          image: "yanivomc/spring-music:latest"
+          volumeMounts:
+          - mountPath: "/usr/share/nginx/html"
+          name: test-pv
