@@ -45,9 +45,9 @@ spec:
               secretKeyRef:
                 name: wordpress-secrets
                 key: db-password
-          volumeMounts:
-          - mountPath: /var/lib/mysql
-            name: db-store
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: db-store
       volumes:
       - name: db-store
         persistentVolumeClaim:
