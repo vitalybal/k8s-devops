@@ -6,7 +6,19 @@ type: Opaque
 data:
   db-password: cGFzc3dvcmQ=
 ---
-
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+ name: wordpress-db-pvc
+ annotations:
+   volume.beta.kubernetes.io/storage-class: default
+spec:
+ accessModes:
+   - ReadWriteOnce
+ resources:
+   requests:
+     storage: 4Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -33,6 +45,13 @@ spec:
               secretKeyRef:
                 name: wordpress-secrets
                 key: db-password
+          volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: db-store
+        volumes:
+        - name: db-store
+          persistentVolumeClaim:
+            claimName: wordpress-db-pvc
 ---
 kind: Service      
 apiVersion: v1     
