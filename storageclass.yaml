@@ -39,7 +39,7 @@ spec:
         tier: frontend
     spec:
       volumes:
-      - name: pv-test
+      - name: test-pv
         persistentVolumeClaim:
           claimName: jb-claim
       containers:
