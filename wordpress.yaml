@@ -47,13 +47,13 @@ spec:
               secretKeyRef:
                 name: wordpress-secrets
                 key: db-password
-#        volumeMounts:
-#        - mountPath: /var/lib/mysql
-#          name: db-data
-#      volumes:
-#      - name: db-data
-#        persistentVolumeClaim:
-#          claimName: wordpress-db-pvc
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: db-data
+      volumes:
+      - name: db-data
+        persistentVolumeClaim:
+          claimName: wordpress-db-pvc
 ---
 kind: Service      
 apiVersion: v1     
