@@ -43,4 +43,4 @@ spec:
           image: "yanivomc/spring-music:latest"
           volumeMounts:
             - mountPath: "/usr/share/nginx/html"
-            name: test-pv
+              name: test-pv
