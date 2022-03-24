@@ -38,6 +38,10 @@ spec:
       labels:
         tier: frontend
     spec:
+      volumes:
+      - name: pv-test
+        persistentVolumeClaim:
+          claimName: jb-claim
       containers:
         - name: music
           image: "yanivomc/spring-music:latest"
