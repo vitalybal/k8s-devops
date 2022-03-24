@@ -45,12 +45,6 @@ spec:
               secretKeyRef:
                 name: wordpress-secrets
                 key: db-password
-        env:
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: wordpress-secrets
-                key: db-password
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: db-data
